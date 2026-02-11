@@ -1,8 +1,70 @@
 {
   "type": "minecraft:flat_cache",
   "argument": {
-    "type": "minecraft:add",
-    "argument1": {
+    "type": "minecraft:range_choice",
+    "input": "minecraft:new_surface/height/unprocessed/rivered",
+    "min_inclusive": -0.879,
+    "max_exclusive": 100.0,
+    "when_in_range": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:spline",
+        "spline": {
+          "coordinate": {
+            "type": "minecraft:abs",
+            "argument": "minecraft:determiner/overworld/smart"
+          },
+          "points": [
+            {
+              "location": 0.0,
+              "derivative": 0,
+              "value": 0.8
+            },
+            {
+              "location": 0.075,
+              "derivative": 0,
+              "value": 0.5
+            },
+            {
+              "location": 0.15,
+              "derivative": 0,
+              "value": 0.2
+            },
+            {
+              "location": 0.225,
+              "derivative": 0,
+              "value": 0.0
+            },
+            {
+              "location": 0.30,
+              "derivative": 0,
+              "value": -0.05
+            },
+            {
+              "location": 0.35,
+              "derivative": 0,
+              "value": -0.10
+            },
+            {
+              "location": 0.40,
+              "derivative": 0,
+              "value": -0.15
+            }
+          ]
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:noise",
+          "noise": "minecraft:continentalness",
+          "xz_scale": 0.25,
+          "y_scale": 0
+        },
+        "argument2": 0.03
+      }
+    },
+    "when_out_of_range": {
       "type": "minecraft:spline",
       "spline": {
         "coordinate": {
@@ -11,44 +73,24 @@
         },
         "points": [
           {
-            "location": 0.0,
-            "derivative": 0,
-            "value": 0.8
-          },
-          {
-            "location": 0.075,
-            "derivative": 0,
-            "value": 0.5
-          },
-          {
-            "location": 0.15,
-            "derivative": 0,
-            "value": 0.2
-          },
-          {
-            "location": 0.225,
-            "derivative": 0,
-            "value": 0.0
-          },
-          {
             "location": 0.30,
             "derivative": 0,
             "value": -0.05
           },
           {
-            "location": 0.32,
+            "location": 0.34,
             "derivative": 0,
-            "value": 0.0
+            "value": -0.05
           },
           {
-            "location": 0.35,
+            "location": 0.37,
             "derivative": 0,
-            "value": -0.19
+            "value": -0.30
           },
           {
             "location": 0.40,
             "derivative": 0,
-            "value": -0.5
+            "value": -0.50
           },
           {
             "location": 0.50,
@@ -57,16 +99,6 @@
           }
         ]
       }
-    },
-    "argument2": {
-      "type": "minecraft:mul",
-      "argument1": {
-        "type": "minecraft:noise",
-        "noise": "minecraft:continentalness",
-        "xz_scale": 0.25,
-        "y_scale": 0
-      },
-      "argument2": 0.05
     }
   }
 }
