@@ -5,6 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
@@ -18,12 +19,7 @@ public class TerraThunderRegion extends Region {
     }
 
     @Override
-    public void addBiomes(Registry<Biome> registry,
-                          Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-        // Use vanilla biome distribution — TerraBlender biome mods (Terralith etc.)
-        // add their own regions alongside this one
-        this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
-            // Can optionally replace biomes that don't suit 2096-block terrain
-        });
+    public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+        this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
     }
 }

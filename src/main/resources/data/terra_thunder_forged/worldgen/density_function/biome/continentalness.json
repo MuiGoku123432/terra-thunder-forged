@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": {
+          "type": "minecraft:abs",
+          "argument": "minecraft:determiner/overworld/smart"
+        },
+        "points": [
+          {
+            "location": 0.0,
+            "derivative": 0,
+            "value": 0.8
+          },
+          {
+            "location": 0.075,
+            "derivative": 0,
+            "value": 0.5
+          },
+          {
+            "location": 0.15,
+            "derivative": 0,
+            "value": 0.2
+          },
+          {
+            "location": 0.225,
+            "derivative": 0,
+            "value": 0.0
+          },
+          {
+            "location": 0.30,
+            "derivative": 0,
+            "value": -0.05
+          },
+          {
+            "location": 0.32,
+            "derivative": 0,
+            "value": 0.0
+          },
+          {
+            "location": 0.35,
+            "derivative": 0,
+            "value": -0.19
+          },
+          {
+            "location": 0.40,
+            "derivative": 0,
+            "value": -0.5
+          },
+          {
+            "location": 0.50,
+            "derivative": 0,
+            "value": -1.05
+          }
+        ]
+      }
+    },
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:noise",
+        "noise": "minecraft:continentalness",
+        "xz_scale": 0.25,
+        "y_scale": 0
+      },
+      "argument2": 0.05
+    }
+  }
+}
