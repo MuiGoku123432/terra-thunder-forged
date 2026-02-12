@@ -40,28 +40,49 @@ public class Terra_thunder_forged {
     private void addPackFinders(final AddPackFindersEvent event) {
         if (event.getPackType() != PackType.SERVER_DATA) return;
 
-        if (ModList.get().isLoaded("terralith")) {
-            LOGGER.info("Terra Thunder Forged: Terralith detected, skipping fallback data pack");
-            return;
-        }
-
-        Path fallbackPath = ModList.get().getModFileById(MOD_ID).getFile()
-                .findResource("fallback_data");
+        // Always register the override pack at TOP priority so our noise_settings
+        // wins over Terralith's (which otherwise wins due to mod ID alphabetical ordering)
+        Path overridePath = ModList.get().getModFileById(MOD_ID).getFile()
+                .findResource("override_data");
 
         event.addRepositorySource(consumer -> {
-            Pack pack = Pack.readMetaAndCreate(
-                    "terra_thunder_fallback",
-                    Component.literal("Terra Thunder Fallback"),
-                    false,
-                    id -> new PathPackResources(id, fallbackPath, true),
+            Pack overridePack = Pack.readMetaAndCreate(
+                    "terra_thunder_override",
+                    Component.literal("Terra Thunder Priority Overrides"),
+                    true,  // required = true, always enabled
+                    id -> new PathPackResources(id, overridePath, true),
                     PackType.SERVER_DATA,
-                    Pack.Position.BOTTOM,
+                    Pack.Position.TOP,
                     PackSource.BUILT_IN
             );
-            if (pack != null) {
-                consumer.accept(pack);
-                LOGGER.info("Terra Thunder Forged: Registered fallback data pack (BOTTOM priority)");
+            if (overridePack != null) {
+                consumer.accept(overridePack);
+                LOGGER.info("Terra Thunder Forged: Registered override pack (TOP priority)");
             }
         });
+
+        // Register fallback pack only when Terralith is not present
+        if (!ModList.get().isLoaded("terralith")) {
+            Path fallbackPath = ModList.get().getModFileById(MOD_ID).getFile()
+                    .findResource("fallback_data");
+
+            event.addRepositorySource(consumer -> {
+                Pack pack = Pack.readMetaAndCreate(
+                        "terra_thunder_fallback",
+                        Component.literal("Terra Thunder Fallback"),
+                        false,
+                        id -> new PathPackResources(id, fallbackPath, true),
+                        PackType.SERVER_DATA,
+                        Pack.Position.BOTTOM,
+                        PackSource.BUILT_IN
+                );
+                if (pack != null) {
+                    consumer.accept(pack);
+                    LOGGER.info("Terra Thunder Forged: Registered fallback data pack (BOTTOM priority)");
+                }
+            });
+        } else {
+            LOGGER.info("Terra Thunder Forged: Terralith detected, skipping fallback data pack");
+        }
     }
 }
